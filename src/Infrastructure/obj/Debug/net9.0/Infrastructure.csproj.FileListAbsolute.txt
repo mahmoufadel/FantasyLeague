@@ -15,3 +15,4 @@ C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Infrastructu
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Infrastructure\obj\Debug\net9.0\refint\Infrastructure.dll
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Infrastructure\obj\Debug\net9.0\Infrastructure.pdb
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Infrastructure\obj\Debug\net9.0\ref\Infrastructure.dll
+C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Infrastructure\obj\Debug\net9.0\Infrastructure.sourcelink.json

@@ -13,3 +13,4 @@ C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Application\
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Application\obj\Debug\net9.0\refint\Application.dll
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Application\obj\Debug\net9.0\Application.pdb
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Application\obj\Debug\net9.0\ref\Application.dll
+C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\Application\obj\Debug\net9.0\Application.sourcelink.json

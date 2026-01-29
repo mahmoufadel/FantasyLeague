@@ -45,3 +45,4 @@ C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\WebApi\obj\D
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\WebApi\obj\Debug\net9.0\WebApi.genruntimeconfig.cache
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\WebApi\obj\Debug\net9.0\ref\WebApi.dll
 C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\WebApi\bin\Debug\net9.0\ClientApp\package-lock.json
+C:\Users\Mahmoud_Fadel\source\repos\Claude\FantasyPremierLeague\src\WebApi\obj\Debug\net9.0\WebApi.sourcelink.json
