@@ -34,3 +34,7 @@
 
 # Ignore Node.js modules
 node_modules/
+
+# Ensure bin folders are ignored
+bin/
+**/bin/

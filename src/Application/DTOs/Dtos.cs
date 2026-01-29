@@ -58,3 +58,20 @@ public record CreateGameWeekDto(
     DateTime StartDate,
     DateTime EndDate
 );
+
+public record MatchResultDto(
+    Guid MatchId,
+    DateTime MatchDate,
+    Guid HomeTeamId,
+    Guid AwayTeamId,
+    int HomeScore,
+    int AwayScore
+);
+
+public record CreateMatchResultDto(
+    Guid HomeTeamId,
+    Guid AwayTeamId,
+    int HomeScore,
+    int AwayScore,
+    DateTime? MatchDate
+);

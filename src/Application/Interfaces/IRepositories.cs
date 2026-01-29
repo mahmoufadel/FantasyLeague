@@ -1,3 +1,4 @@
+using Application.DTOs;
 using Domain.Entities;
 
 namespace Application.Interfaces;
@@ -29,4 +30,9 @@ public interface IGameWeekRepository
     Task<GameWeek?> GetActiveGameWeekAsync(CancellationToken cancellationToken = default);
     Task AddAsync(GameWeek gameWeek, CancellationToken cancellationToken = default);
     Task UpdateAsync(GameWeek gameWeek, CancellationToken cancellationToken = default);
+}
+
+public interface IMatchResultService
+{
+    Task<MatchResultDto> CreateMatchResultAsync(CreateMatchResultDto dto, CancellationToken cancellationToken = default);
 }
