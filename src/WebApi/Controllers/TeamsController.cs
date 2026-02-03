@@ -1,5 +1,5 @@
 using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -8,9 +8,9 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 public class TeamsController : ControllerBase
 {
-    private readonly TeamService _teamService;
+    private readonly ITeamService _teamService;
 
-    public TeamsController(TeamService teamService)
+    public TeamsController(ITeamService teamService)
     {
         _teamService = teamService;
     }

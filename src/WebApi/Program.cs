@@ -29,11 +29,12 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IGameWeekRepository, GameWeekRepository>();
 
 // Register application services
-builder.Services.AddScoped<PlayerService>();
-builder.Services.AddScoped<TeamService>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddSingleton<Dapr.Client.DaprClient>(sp => new Dapr.Client.DaprClientBuilder().Build());
-builder.Services.AddScoped<Application.Services.MatchResultService>();
-builder.Services.AddScoped<Application.Interfaces.IMatchResultService>(sp => sp.GetRequiredService<Application.Services.MatchResultService>());
+builder.Services.AddScoped<Application.Interfaces.IMatchResultService, Application.Services.MatchResultService>();
+builder.Services.AddScoped<WebApi.Services.DapprClient>();
+builder.Services.AddScoped<Dapr.Client.DaprClient>(sp => sp.GetRequiredService<Dapr.Client.DaprClient>());
 
 // Configure CORS
 builder.Services.AddCors(options =>

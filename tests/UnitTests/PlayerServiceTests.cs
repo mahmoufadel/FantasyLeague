@@ -23,8 +23,8 @@ public class PlayerServiceTests
         var result = await service.GetAllPlayersAsync();
 
         // Assert
-        result.Should().HaveCount(2);
-        result.Should().Contain(p => p.Name == "Player1");
+        result.Should().HaveCount(players.Count);
+        result.Should().Contain(p => p.Name == players.First().Name);
     }
 
     [Theory, AutoMockData]

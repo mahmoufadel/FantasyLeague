@@ -4,7 +4,7 @@ using Domain.Entities;
 
 namespace Application.Services;
 
-public class TeamService
+public class TeamService : ITeamService
 {
     private readonly ITeamRepository _teamRepository;
     private readonly IPlayerRepository _playerRepository;

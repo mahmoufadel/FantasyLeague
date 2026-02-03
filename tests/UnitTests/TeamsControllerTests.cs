@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Application.Services;
 using Application.DTOs;
 using WebApi.Controllers;
 using Xunit;
 using FluentAssertions;
+using Application.Interfaces;
 
 namespace UnitTests;
 
 public class TeamsControllerTests
 {
     [Theory, AutoMockData]
-    public async Task GetAll_ReturnsOk(Mock<TeamService> mockService)
+    public async Task GetAll_ReturnsOk(Mock<ITeamService> mockService)
     {
         mockService.Setup(s => s.GetAllTeamsAsync(It.IsAny<System.Threading.CancellationToken>()))
             .ReturnsAsync(new List<TeamDto>());
@@ -25,7 +25,7 @@ public class TeamsControllerTests
     }
 
     [Theory, AutoMockData]
-    public async Task GetById_ReturnsNotFound_WhenNull(Mock<TeamService> mockService)
+    public async Task GetById_ReturnsNotFound_WhenNull(Mock<ITeamService> mockService)
     {
         mockService.Setup(s => s.GetTeamByIdAsync(It.IsAny<Guid>(), It.IsAny<System.Threading.CancellationToken>())).ReturnsAsync((TeamDto?)null);
 
@@ -37,7 +37,7 @@ public class TeamsControllerTests
     }
 
     [Theory, AutoMockData]
-    public async Task AddPlayer_ReturnsBadRequest_WhenPlayerMissing(Mock<TeamService> mockService)
+    public async Task AddPlayer_ReturnsBadRequest_WhenPlayerMissing(Mock<ITeamService> mockService)
     {
         mockService.Setup(s => s.AddPlayerToTeamAsync(It.IsAny<AddPlayerToTeamDto>(), It.IsAny<System.Threading.CancellationToken>()))
             .ThrowsAsync(new InvalidOperationException("Player not found"));
@@ -51,7 +51,7 @@ public class TeamsControllerTests
     }
 
     [Theory, AutoMockData]
-    public async Task Delete_ReturnsNotFound_WhenTeamMissing(Mock<TeamService> mockService)
+    public async Task Delete_ReturnsNotFound_WhenTeamMissing(Mock<ITeamService> mockService)
     {
         mockService.Setup(s => s.DeleteTeamAsync(It.IsAny<Guid>(), It.IsAny<System.Threading.CancellationToken>())).ReturnsAsync(false);
 

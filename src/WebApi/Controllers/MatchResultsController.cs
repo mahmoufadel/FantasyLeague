@@ -1,6 +1,6 @@
 using Application.DTOs;
 using Application.Interfaces;
-using Dapr.Client;
+using WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -10,12 +10,12 @@ namespace WebApi.Controllers;
 public class MatchResultsController : ControllerBase
 {
     private readonly IMatchResultService _matchResultService;
-    private readonly DaprClient _daprClient;
+    private readonly DapprClient _dapprClient;
 
-    public MatchResultsController(IMatchResultService matchResultService, DaprClient daprClient)
+    public MatchResultsController(IMatchResultService matchResultService, DapprClient daprClient)
     {
         _matchResultService = matchResultService;
-        _daprClient = daprClient;
+        _dapprClient = daprClient;
     }
 
     [HttpPost]
@@ -26,7 +26,7 @@ public class MatchResultsController : ControllerBase
         // Publish the match result to a Dapr pub/sub component named "matchpubsub" and topic "matchresults"
         try
         {
-            await _daprClient.PublishEventAsync("matchpubsub", "matchresults", result, cancellationToken: cancellationToken);
+            await _dapprClient.PublishEventAsync("matchpubsub", "matchresults", result, cancellationToken: cancellationToken);
         }
         catch (Exception ex)
         {

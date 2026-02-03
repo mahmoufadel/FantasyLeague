@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.Interfaces;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,9 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 public class PlayersController : ControllerBase
 {
-    private readonly PlayerService _playerService;
+    private readonly IPlayerService _playerService;
 
-    public PlayersController(PlayerService playerService)
+    public PlayersController(IPlayerService playerService)
     {
         _playerService = playerService;
     }

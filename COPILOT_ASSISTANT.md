@@ -25,7 +25,7 @@
   * **Domain**: Entities, Value Objects, Aggregates, Domain Events
   * **Application**: CQRS (Commands, Queries, Handlers, DTOs, Interfaces)
   * **Infrastructure**: Persistence, external services, implementations
-  * **API**: Controllers, request/response contracts
+  * **API**: Controllers (𝐌𝐢𝐧𝐢𝐦𝐚𝐥 𝐀𝐏𝐈𝐬), request/response contracts
 * Enforce dependency direction:
 
   ```
