@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Application.Services;
+using Domain.Entities;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,13 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
+
+    options.AddPolicy("AllowNgApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();
@@ -65,6 +73,8 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseCors("AllowReactApp");
+app.UseCors("AllowNgApp");
+
 app.UseAuthorization();
 app.MapControllers();
 
@@ -105,8 +115,14 @@ static void SeedData(FantasyPremierLeagueDbContext context)
         new Domain.Entities.Player("Aaron Ramsdale", "Goalkeeper", "Arsenal", 5.0m)
     };
 
+   
+    var teams = new[]
+    { new Team("Barcelona", "Xavi") { }, // You must provide Id if it's required
+            new Team("Real Madrid", "Carlo Ancelotti") { },
+            new Team("Manchester United", "Erik Ten Hag") { } };
+   
+    context.Teams.AddRange(teams);
     context.Players.AddRange(players);
     context.SaveChanges();
-
     Console.WriteLine($"Seeded {players.Length} players into the database");
 }

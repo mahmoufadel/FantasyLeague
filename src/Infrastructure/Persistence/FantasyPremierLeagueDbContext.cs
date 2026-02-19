@@ -55,5 +55,11 @@ public class FantasyPremierLeagueDbContext : DbContext
             entity.Property(e => e.StartDate).IsRequired();
             entity.Property(e => e.EndDate).IsRequired();
         });
+
+        modelBuilder.Entity<Team>().HasData(
+            new Team("Barcelona", "Xavi") { }, // You must provide Id if it's required
+            new Team("Real Madrid", "Carlo Ancelotti") { },
+            new Team("Manchester United", "Erik Ten Hag") {  }
+        );
     }
 }

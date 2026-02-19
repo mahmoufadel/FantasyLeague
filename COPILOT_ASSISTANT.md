@@ -205,3 +205,62 @@ dotnet test
 ```
 
 Fix failures immediately 
+
+
+
+Angular application with the following requirements:
+
+
+## General Rules
+- Use **Standalone Components** by default (NO NgModules unless explicitly required).
+- Prefer **Signals** over RxJS for local and UI state.
+- Avoid unnecessary RxJS complexity.
+- Assume **zoneless change detection** (no reliance on Zone.js).
+- Optimize for **performance, readability, and simplicity**.
+
+---
+
+## Reactivity & State Management
+- Use `signal()` for mutable state.
+- Use `computed()` for derived state.
+- Use `effect()` for side effects.
+- Do NOT use `BehaviorSubject` or `Subject` for local component state.
+- Use Observables ONLY for:
+  - HTTP streams
+  - WebSockets
+  - External event streams
+
+Example:
+```ts
+count = signal(0);
+doubleCount = computed(() => this.count() * 2);
+
+
+
+1. Use the latest stable Angular version
+2. Use standalone components (no NgModules)
+3. Use SCSS for styling
+4. Enable strict mode
+5. Use routing
+6. Follow clean architecture and best practices
+7. Use environment-based configuration
+8. Prepare the project for enterprise-scale development
+
+Project structure:
+- Core folder for singleton services (auth, api, interceptors)
+- Shared folder for reusable components, pipes, directives
+- Feature-based structure under /features
+- Use lazy loading for features
+- Use Angular signals where appropriate
+- Use HttpClient with interceptors
+- Add example service, component, and route
+
+Include:
+- Example feature module (e.g. Dashboard)
+- Example API service with mock data
+- Example route guard
+- Clean, well-commented code
+
+Do not include unnecessary boilerplate.
+Explain key decisions briefly.
+

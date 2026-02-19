@@ -25,6 +25,7 @@ public class TeamService : ITeamService
             teamDtos.Add(await MapToDto(team, cancellationToken));
         }
 
+       
         return teamDtos;
     }
 

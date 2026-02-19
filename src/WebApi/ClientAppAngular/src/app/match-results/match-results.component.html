@@ -1,0 +1,38 @@
+<div class="match-results-root">
+  <h3>Create Match Result</h3>
+
+  <div *ngIf="loading()">Loading...</div>
+
+  <div>
+    <label>Home Team</label>
+    <select [(ngModel)]="homeTeam">
+      <option [ngValue]="null">-- select --</option>
+      <option *ngFor="let t of teams()" [ngValue]="t.id">{{ t.name }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Away Team</label>
+    <select [(ngModel)]="awayTeam">
+      <option [ngValue]="null">-- select --</option>
+      <option *ngFor="let t of teams()" [ngValue]="t.id">{{ t.name }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Home Score</label>
+    <input type="number" [(ngModel)]="homeScore" />
+  </div> 
+
+  <div>
+    <label>Away Score</label>
+    <input type="number" [(ngModel)]="awayScore" />
+  </div>
+
+  <div>
+    <label>Match Date</label>
+    <input type="datetime-local" [(ngModel)]="matchDate" />
+  </div>
+
+  <button (click)="submit()">Submit</button>
+</div>

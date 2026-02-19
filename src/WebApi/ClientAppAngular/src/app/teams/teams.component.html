@@ -1,0 +1,30 @@
+<div class="teams-root">
+  <h2>Teams</h2>
+
+  <div *ngIf="loading()">Loading...</div>
+  <div *ngIf="error()" class="error">{{ error() }}</div>
+
+
+  <section *ngFor="let team of teams()" class="team">
+    <h4>{{ team.name }} <small>({{ team.managerName }})</small></h4>
+    <div>Budget: {{ team.budget | currency:'USD' }}</div>
+    <div>Total Points: {{ team.totalPoints }}</div>
+
+    <div class="players">
+      <h5>Players</h5>
+      <ul>
+        <li *ngFor="let p of team.players">
+          {{ p.name }} ({{ p.position }})
+          <button (click)="removePlayer(team.id, p.id)">Remove</button>
+        </li>
+      </ul>
+
+      <select #playerSelect>
+        <option *ngFor="let p of availablePlayers()" [value]="p.id">{{ p.name }} - {{ p.position }}</option>
+      </select>
+      <button (click)="addPlayer(team.id, playerSelect.value)">Add Selected Player</button>
+    </div>
+
+    <button (click)="deleteTeam(team.id)">Delete Team</button>
+  </section>
+</div>
