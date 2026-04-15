@@ -1,0 +1,9 @@
+{
+  "name": "Run Tests Before Commit",
+  "description": "Run all unit tests before committing changes",
+  "command": "cd \"${WORKSPACE_ROOT}\" && dotnet test --no-build --verbosity minimal",
+  "on": "commit",
+  "timeout": 300000,
+  "show_output": "always",
+  "blocking": true
+}

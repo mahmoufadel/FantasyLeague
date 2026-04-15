@@ -8,6 +8,8 @@ public class FantasyPremierLeagueDbContext : DbContext
     public DbSet<Player> Players { get; set; }
     public DbSet<Team> Teams { get; set; }
     public DbSet<GameWeek> GameWeeks { get; set; }
+    public DbSet<MatchResult> MatchResults { get; set; }
+    public DbSet<Transfer> Transfers { get; set; }
 
     public FantasyPremierLeagueDbContext(DbContextOptions<FantasyPremierLeagueDbContext> options)
         : base(options)
@@ -56,10 +58,26 @@ public class FantasyPremierLeagueDbContext : DbContext
             entity.Property(e => e.EndDate).IsRequired();
         });
 
-        modelBuilder.Entity<Team>().HasData(
-            new Team("Barcelona", "Xavi") { }, // You must provide Id if it's required
-            new Team("Real Madrid", "Carlo Ancelotti") { },
-            new Team("Manchester United", "Erik Ten Hag") {  }
-        );
+        // MatchResult configuration
+        modelBuilder.Entity<MatchResult>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.MatchDate).IsRequired();
+            entity.Property(e => e.HomeTeamId).IsRequired();
+            entity.Property(e => e.AwayTeamId).IsRequired();
+            entity.Property(e => e.HomeScore).IsRequired();
+            entity.Property(e => e.AwayScore).IsRequired();
+        });
+
+        // Transfer configuration
+        modelBuilder.Entity<Transfer>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.PlayerId).IsRequired();
+            entity.Property(e => e.FromTeamId).IsRequired();
+            entity.Property(e => e.ToTeamId).IsRequired();
+            entity.Property(e => e.TransferDate).IsRequired();
+            entity.Property(e => e.Fee).HasPrecision(10, 2);
+        });
     }
 }

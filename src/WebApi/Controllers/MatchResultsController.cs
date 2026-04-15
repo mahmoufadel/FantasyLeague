@@ -11,11 +11,29 @@ public class MatchResultsController : ControllerBase
 {
     private readonly IMatchResultService _matchResultService;
     private readonly DapprClient _dapprClient;
+    private readonly ILogger<MatchResultsController> _logger;
 
-    public MatchResultsController(IMatchResultService matchResultService, DapprClient daprClient)
+    public MatchResultsController(IMatchResultService matchResultService, DapprClient daprClient, ILogger<MatchResultsController> logger)
     {
         _matchResultService = matchResultService;
         _dapprClient = daprClient;
+        _logger = logger;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllMatchResults(CancellationToken cancellationToken)
+    {
+        var results = await _matchResultService.GetAllMatchResultsAsync(cancellationToken);
+        return Ok(results);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetMatchResult(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _matchResultService.GetMatchResultByIdAsync(id, cancellationToken);
+        if (result is null)
+            return NotFound();
+        return Ok(result);
     }
 
     [HttpPost]
@@ -31,16 +49,10 @@ public class MatchResultsController : ControllerBase
         catch (Exception ex)
         {
             // If Dapr isn't running the publish will fail; we still return the created result
-            Console.WriteLine($"Dapr publish failed: {ex.Message}");
+            _logger.LogWarning(ex, "Dapr publish failed for match result {MatchId}", result.MatchId);
         }
 
         return CreatedAtAction(nameof(GetMatchResult), new { id = result.MatchId }, result);
     }
-
-    [HttpGet("{id:guid}")]
-    public IActionResult GetMatchResult(Guid id)
-    {
-        // This example doesn't persist match results; return NotFound
-        return NotFound();
-    }
 }
+

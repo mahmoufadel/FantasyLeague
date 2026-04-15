@@ -43,4 +43,14 @@ public class GameWeekRepository : IGameWeekRepository
         _context.GameWeeks.Update(gameWeek);
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var gameWeek = await _context.GameWeeks.FindAsync(new object[] { id }, cancellationToken);
+        if (gameWeek is not null)
+        {
+            _context.GameWeeks.Remove(gameWeek);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+    }
 }

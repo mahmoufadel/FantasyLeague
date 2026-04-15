@@ -1,0 +1,9 @@
+{
+  "name": "Run Tests After Test Edit",
+  "description": "Run dotnet test after editing test files",
+  "pattern": "tests/**/*.cs",
+  "command": "cd \"${WORKSPACE_ROOT}\" && dotnet test --no-build --filter 'FullyQualifiedName~${FILE_NAME_WITHOUT_EXT}' --verbosity minimal",
+  "on": "edit",
+  "timeout": 180000,
+  "show_output": "always"
+}

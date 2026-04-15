@@ -1,0 +1,9 @@
+{
+  "name": "Verify Build After Edit",
+  "description": "Run dotnet build after editing C# files to verify compilation",
+  "pattern": "**/*.cs",
+  "command": "cd \"${WORKSPACE_ROOT}\" && dotnet build --no-restore -v quiet",
+  "on": "edit",
+  "timeout": 120000,
+  "show_output": "on_error"
+}

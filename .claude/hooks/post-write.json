@@ -1,0 +1,9 @@
+{
+  "name": "Verify Build After Write",
+  "description": "Run dotnet build after writing new C# files to verify compilation",
+  "pattern": "**/*.cs",
+  "command": "cd \"${WORKSPACE_ROOT}\" && dotnet build --no-restore -v quiet",
+  "on": "write",
+  "timeout": 120000,
+  "show_output": "on_error"
+}

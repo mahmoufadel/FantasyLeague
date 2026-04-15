@@ -33,6 +33,13 @@ public class Player : Entity
 
     public void UpdateStats(int goalsScored, int assists, int cleanSheets)
     {
+        if (goalsScored < 0)
+            throw new ArgumentException("Goals scored cannot be negative", nameof(goalsScored));
+        if (assists < 0)
+            throw new ArgumentException("Assists cannot be negative", nameof(assists));
+        if (cleanSheets < 0)
+            throw new ArgumentException("Clean sheets cannot be negative", nameof(cleanSheets));
+
         GoalsScored += goalsScored;
         Assists += assists;
         CleanSheets += cleanSheets;

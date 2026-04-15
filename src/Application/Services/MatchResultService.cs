@@ -1,15 +1,42 @@
 using Application.DTOs;
 using Application.Interfaces;
+using Domain.Entities;
 
 namespace Application.Services;
 
 public class MatchResultService : IMatchResultService
 {
-    // The application service doesn't perform persistence here, it will delegate to infrastructure or publish events.
-    public Task<MatchResultDto> CreateMatchResultAsync(CreateMatchResultDto dto, CancellationToken cancellationToken = default)
+    private readonly IMatchResultRepository _matchResultRepository;
+
+    public MatchResultService(IMatchResultRepository matchResultRepository)
+    {
+        _matchResultRepository = matchResultRepository;
+    }
+
+    public async Task<MatchResultDto> CreateMatchResultAsync(CreateMatchResultDto dto, CancellationToken cancellationToken = default)
     {
         var matchDate = dto.MatchDate ?? DateTime.UtcNow;
-        var result = new MatchResultDto(Guid.NewGuid(), matchDate, dto.HomeTeamId, dto.AwayTeamId, dto.HomeScore, dto.AwayScore);
-        return Task.FromResult(result);
+        var matchResult = new MatchResult(matchDate, dto.HomeTeamId, dto.AwayTeamId, dto.HomeScore, dto.AwayScore);
+
+        await _matchResultRepository.AddAsync(matchResult, cancellationToken);
+
+        return MapToDto(matchResult);
     }
+
+    public async Task<MatchResultDto?> GetMatchResultByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var matchResult = await _matchResultRepository.GetByIdAsync(id, cancellationToken);
+        return matchResult is null ? null : MapToDto(matchResult);
+    }
+
+    public async Task<IEnumerable<MatchResultDto>> GetAllMatchResultsAsync(CancellationToken cancellationToken = default)
+    {
+        var results = await _matchResultRepository.GetAllAsync(cancellationToken);
+        return results.Select(MapToDto);
+    }
+
+    private static MatchResultDto MapToDto(MatchResult matchResult) =>
+        new(matchResult.Id, matchResult.MatchDate, matchResult.HomeTeamId,
+            matchResult.AwayTeamId, matchResult.HomeScore, matchResult.AwayScore);
 }
+

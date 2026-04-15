@@ -4,6 +4,7 @@ using Domain.Entities;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,28 +29,24 @@ builder.Services.AddDbContext<FantasyPremierLeagueDbContext>(options =>
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IGameWeekRepository, GameWeekRepository>();
+builder.Services.AddScoped<IMatchResultRepository, MatchResultRepository>();
+builder.Services.AddScoped<ITransferRepository, TransferRepository>();
 
 // Register application services
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<IGameWeekService, GameWeekService>();
+builder.Services.AddScoped<ITransferService, TransferService>();
 builder.Services.AddSingleton<Dapr.Client.DaprClient>(sp => new Dapr.Client.DaprClientBuilder().Build());
 builder.Services.AddScoped<Application.Interfaces.IMatchResultService, Application.Services.MatchResultService>();
 builder.Services.AddScoped<WebApi.Services.DapprClient>();
-builder.Services.AddScoped<Dapr.Client.DaprClient>(sp => sp.GetRequiredService<Dapr.Client.DaprClient>());
 
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp", policy =>
+    options.AddPolicy("AllowClientApps", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-
-    options.AddPolicy("AllowNgApp", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:3000", "http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -66,14 +63,14 @@ using (var scope = app.Services.CreateScope())
 
 // Enable Swagger in all environments (not just Development)
 app.UseSwagger();
+
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fantasy Premier League API v1");
     c.RoutePrefix = "swagger"; // Access at /swagger
 });
 
-app.UseCors("AllowReactApp");
-app.UseCors("AllowNgApp");
+app.UseCors("AllowClientApps");
 
 app.UseAuthorization();
 app.MapControllers();
@@ -115,14 +112,9 @@ static void SeedData(FantasyPremierLeagueDbContext context)
         new Domain.Entities.Player("Aaron Ramsdale", "Goalkeeper", "Arsenal", 5.0m)
     };
 
-   
-    var teams = new[]
-    { new Team("Barcelona", "Xavi") { }, // You must provide Id if it's required
-            new Team("Real Madrid", "Carlo Ancelotti") { },
-            new Team("Manchester United", "Erik Ten Hag") { } };
-   
-    context.Teams.AddRange(teams);
     context.Players.AddRange(players);
     context.SaveChanges();
-    Console.WriteLine($"Seeded {players.Length} players into the database");
 }
+
+// Expose Program class to integration test projects
+public partial class Program { }

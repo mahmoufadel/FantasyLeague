@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { teamService, playerService } from '../services/api';
+import UserCard from "./UserCard";
 
 function Teams() {
   const [teams, setTeams] = useState([]);
@@ -82,6 +83,7 @@ function Teams() {
 
   return (
     <div>
+       <UserCard name="Ali" age={25} />
       {error && <div className="error">{error}</div>}
       {success && <div className="success">{success}</div>}
 

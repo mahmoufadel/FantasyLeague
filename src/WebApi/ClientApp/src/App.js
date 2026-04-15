@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Players from './components/Players';
 import Teams from './components/Teams';
+import UserCard from "./components/UserCard";
 
 function App() {
   const [activeTab, setActiveTab] = useState('players');
@@ -19,15 +20,18 @@ function App() {
             Players
           </button>
           <button 
-            className={activeTab === 'teams' ? 'active' : ''}
-            onClick={() => setActiveTab('teams')}
+            className={activeTab === 'teams' ? 'active' : ''}            onClick={() => setActiveTab('teams')}
           >
             My Teams
           </button>
+
         </nav>
       </header>
 
       <main className="container">
+        <UserCard name="Mahmoud" age={39} />
+      <UserCard name="Ali" age={25} />
+
         {activeTab === 'players' && <Players />}
         {activeTab === 'teams' && <Teams />}
       </main>

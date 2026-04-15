@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { playerService } from '../services/api';
+import UserCard from "./UserCard";
 
 function Players({ onAddToTeam }) {
   const [players, setPlayers] = useState([]);
@@ -34,6 +35,7 @@ function Players({ onAddToTeam }) {
 
   return (
     <div>
+       <UserCard name="mhamed" age={25} />
       <div className="card">
         <h2>Available Players</h2>
         <div style={{ marginTop: '1rem' }}>
